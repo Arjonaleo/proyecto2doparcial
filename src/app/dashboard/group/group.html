@@ -1,1 +1,24 @@
-<p>group works!</p>
+<div class="group-container">
+  <div class="group-header">
+    <h2>Mis Grupos</h2>
+    <form [formGroup]="form" (ngSubmit)="addGroup()">
+      <input
+        type="text"
+        formControlName="name"
+        placeholder="Nuevo grupo"
+        [class.invalid]="form.get('name')?.invalid && form.get('name')?.touched"
+      />
+      <button type="submit">Agregar</button>
+    </form>
+    <div class="error" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+      El nombre debe tener al menos 3 caracteres
+    </div>
+  </div>
+
+  <div class="group-list">
+    <div class="group-card" *ngFor="let group of groups">
+      <span>{{ group.name }}</span>
+      <button (click)="deleteGroup(group.id)">✕</button>
+    </div>
+  </div>
+</div>
