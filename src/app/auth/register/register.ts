@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth';
 
 @Component({
-  selector: 'app-register',
+  selector: 'app-group',
+  standalone: false,
   templateUrl: './register.html',
   styleUrls: ['./register.scss']
 })

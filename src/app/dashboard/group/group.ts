@@ -9,6 +9,7 @@ interface GroupItem {
 
 @Component({
   selector: 'app-group',
+  standalone: false,
   templateUrl: './group.html',
   styleUrls: ['./group.scss']
 })

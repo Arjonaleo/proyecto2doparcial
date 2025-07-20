@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,8 +37,8 @@ import { Modal } from './shared/modal/modal';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,     // <-- NECESARIO para login y register
-    HttpClientModule         // <-- NECESARIO si usarás peticiones simuladas o reales
+    ReactiveFormsModule,     
+    HttpClientModule         
   ],
   providers: [],
   bootstrap: [App]
