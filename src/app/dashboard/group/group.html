@@ -1,3 +1,4 @@
+<!-- src/app/dashboard/group/group.html -->
 <div class="group-container">
   <header>
     <h2>Mis Grupos</h2>
@@ -8,20 +9,26 @@
       type="text"
       formControlName="name"
       placeholder="Nombre del nuevo grupo"
-      [class.invalid]="form.get('name')?.invalid && form.get('name')?.touched"
+      [class.invalid]="nameControl?.invalid && nameControl?.touched"
       autocomplete="off"
     />
     <button type="submit" [disabled]="form.invalid">Agregar</button>
   </form>
 
-  <div class="error-message" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+  <div class="error-message" *ngIf="nameControl?.invalid && nameControl?.touched">
     El nombre debe tener al menos 3 caracteres.
   </div>
 
   <section class="group-list">
-    <div class="group-card" *ngFor="let group of groups">
+    <div
+      class="group-card"
+      *ngFor="let group of groups; trackBy: trackByGroup"
+    >
       <span class="group-name">{{ group.name }}</span>
-      <button class="delete-btn" (click)="deleteGroup(group.id)" title="Eliminar grupo">×</button>
+      <div class="group-actions">
+        <button class="open-btn" (click)="goToBoard(group.id)" title="Abrir tablero">🡆</button>
+        <button class="delete-btn" (click)="deleteGroup(group.id)" title="Eliminar grupo">×</button>
+      </div>
     </div>
   </section>
 </div>
