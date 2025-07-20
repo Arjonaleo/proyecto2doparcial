@@ -1,14 +1,39 @@
 <div class="column">
   <div class="column-header">
     <h3>{{ name }}</h3>
+
     <form [formGroup]="form" (ngSubmit)="onAdd()" class="add-form">
+      <!-- Título -->
       <input
         type="text"
         formControlName="title"
-        placeholder="Nueva tarea"
+        placeholder="Título"
         [class.invalid]="titleControl?.invalid && titleControl?.touched"
       />
-      <button type="submit" [disabled]="form.invalid">+</button>
+
+      <!-- Descripción -->
+      <textarea
+        formControlName="description"
+        placeholder="Descripción"
+        [class.invalid]="descControl?.invalid && descControl?.touched"
+      ></textarea>
+
+      <!-- Asignado a -->
+      <input
+        type="text"
+        formControlName="assignee"
+        placeholder="Asignado a"
+        [class.invalid]="assigneeControl?.invalid && assigneeControl?.touched"
+      />
+
+      <!-- Estado -->
+      <select formControlName="status" [class.invalid]="statusControl?.invalid && statusControl?.touched">
+        <option value="sin empezar">Sin empezar</option>
+        <option value="terminada">Terminada</option>
+        <option value="aprobada">Aprobada</option>
+      </select>
+
+      <button type="submit" [disabled]="form.invalid">Agregar tarea</button>
     </form>
   </div>
 

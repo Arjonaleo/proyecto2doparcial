@@ -1,4 +1,4 @@
-// src/app/dashboard/board/board.ts 
+/// src/app/dashboard/board/board.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -24,41 +24,33 @@ interface Column {
 export class Board implements OnInit {
   groupId!: number;
   columns: Column[] = [];
-  private nextTaskId = 1;
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // Obtener el ID del grupo desde la ruta
     this.groupId = Number(this.route.snapshot.paramMap.get('id'));
-
-    // Inicializar columnas predefinidas
     this.columns = [
-      { name: 'To Do', tasks: [] },
+      { name: 'To Do',       tasks: [] },
       { name: 'In Progress', tasks: [] },
-      { name: 'Hot Fix', tasks: [] },
-      { name: 'Done', tasks: [] }
+      { name: 'Hot Fix',     tasks: [] },
+      { name: 'Done',        tasks: [] }
     ];
   }
 
-  // Agregar una nueva tarea a una columna
-  addTask(columnIndex: number, title: string): void {
-    const task: Task = {
-      id: this.nextTaskId++,
-      title: title.trim(),
-      description: 'Descripción por defecto',
-      assignee: 'Sin asignar',
-      status: 'sin empezar'
-    };
+  /**
+   * Agrega una tarea completa (Task) a la columna indicada
+   */
+  addTask(columnIndex: number, task: Task): void {
     this.columns[columnIndex].tasks.push(task);
   }
 
-  // Eliminar tarea por ID
+  /**
+   * Elimina una tarea por ID de la columna indicada
+   */
   deleteTask(columnIndex: number, taskId: number): void {
-    this.columns[columnIndex].tasks = this.columns[columnIndex].tasks.filter(task => task.id !== taskId);
+    this.columns[columnIndex].tasks = this.columns[columnIndex].tasks.filter(t => t.id !== taskId);
   }
 
-  // Para mejorar el rendimiento al iterar en *ngFor
   trackByColumn(index: number, col: Column): string {
     return col.name;
   }
@@ -67,3 +59,4 @@ export class Board implements OnInit {
     return task.id;
   }
 }
+
