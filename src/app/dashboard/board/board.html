@@ -1,1 +1,21 @@
-<p>board works!</p>
+<div class="board-container">
+  <header class="board-header">
+    <h2>Tablero - Grupo #{{ groupId }}</h2>
+  </header>
+
+  <section class="columns">
+    <div class="column" *ngFor="let col of columns; trackBy: trackByColumn">
+      <div class="column-header">
+        <h3>{{ col.name }}</h3>
+        <button class="add-task-btn" (click)="addTask(columns.indexOf(col), 'Nueva tarea')">+</button>
+      </div>
+
+      <div class="tasks">
+        <div class="task-card" *ngFor="let task of col.tasks; trackBy: trackByTask">
+          <p class="task-title">{{ task.title }}</p>
+          <p class="task-status">Status: {{ task.status }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
