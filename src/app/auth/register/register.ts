@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth';
@@ -38,10 +38,15 @@ export class Register {
       return;
     }
 
-    const { name, email } = this.form.value;
-    // Simulamos registro
-    console.log('Usuario registrado:', { name, email });
+    const { email, password: pwd } = this.form.value;
 
-    this.router.navigate(['/login']);
+    this.authService.register(email, pwd).subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        this.errorMessage = err.message || 'Ocurrió un error al registrar';
+      }
+    });
   }
 }

@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'register', component: Register },
 
   // Dashboard
-  { path: 'groups', component: Group },
+  { path: 'group', component: Group },
   { path: 'board/:id', component: Board },
 
   // Fallback

@@ -32,7 +32,7 @@ export class Login {
 
     const { email, password } = this.form.value;
     this.authService.login(email, password).subscribe({
-      next: () => this.router.navigate(['/dashboard']),
+      next: () => this.router.navigate(['/group']), // 👈 redirección corregida
       error: () => this.errorMessage = 'Credenciales incorrectas'
     });
   }
