@@ -4,18 +4,12 @@
   </header>
 
   <section class="columns">
-    <div class="column" *ngFor="let col of columns; trackBy: trackByColumn">
-      <div class="column-header">
-        <h3>{{ col.name }}</h3>
-        <button class="add-task-btn" (click)="addTask(columns.indexOf(col), 'Nueva tarea')">+</button>
-      </div>
-
-      <div class="tasks">
-        <div class="task-card" *ngFor="let task of col.tasks; trackBy: trackByTask">
-          <p class="task-title">{{ task.title }}</p>
-          <p class="task-status">Status: {{ task.status }}</p>
-        </div>
-      </div>
-    </div>
+    <app-column
+      *ngFor="let col of columns; trackBy: trackByColumn"
+      [name]="col.name"
+      [tasks]="col.tasks"
+      (add)="addTask(columns.indexOf(col), $event)"
+      (delete)="deleteTask(columns.indexOf(col), $event)">
+    </app-column>
   </section>
 </div>

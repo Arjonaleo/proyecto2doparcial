@@ -1,8 +1,8 @@
-// src/app/dashboard/board/board.ts
+// src/app/dashboard/board/board.ts 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-interface Task {
+export interface Task {
   id: number;
   title: string;
   description?: string;
@@ -29,10 +29,10 @@ export class Board implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // Obtener el ID del grupo de la URL
+    // Obtener el ID del grupo desde la ruta
     this.groupId = Number(this.route.snapshot.paramMap.get('id'));
 
-    // Inicializar columnas con nombres fijos
+    // Inicializar columnas predefinidas
     this.columns = [
       { name: 'To Do', tasks: [] },
       { name: 'In Progress', tasks: [] },
@@ -41,16 +41,24 @@ export class Board implements OnInit {
     ];
   }
 
-  // Método para agregar tarea de ejemplo (puedes expandirlo luego)
+  // Agregar una nueva tarea a una columna
   addTask(columnIndex: number, title: string): void {
     const task: Task = {
       id: this.nextTaskId++,
       title: title.trim(),
+      description: 'Descripción por defecto',
+      assignee: 'Sin asignar',
       status: 'sin empezar'
     };
     this.columns[columnIndex].tasks.push(task);
   }
 
+  // Eliminar tarea por ID
+  deleteTask(columnIndex: number, taskId: number): void {
+    this.columns[columnIndex].tasks = this.columns[columnIndex].tasks.filter(task => task.id !== taskId);
+  }
+
+  // Para mejorar el rendimiento al iterar en *ngFor
   trackByColumn(index: number, col: Column): string {
     return col.name;
   }

@@ -1,1 +1,22 @@
-<p>column works!</p>
+<div class="column">
+  <div class="column-header">
+    <h3>{{ name }}</h3>
+    <form [formGroup]="form" (ngSubmit)="onAdd()" class="add-form">
+      <input
+        type="text"
+        formControlName="title"
+        placeholder="Nueva tarea"
+        [class.invalid]="titleControl?.invalid && titleControl?.touched"
+      />
+      <button type="submit" [disabled]="form.invalid">+</button>
+    </form>
+  </div>
+
+  <div class="tasks">
+    <app-task-card
+      *ngFor="let task of tasks; trackBy: trackByTask"
+      [task]="task"
+      (delete)="onDelete($event)">
+    </app-task-card>
+  </div>
+</div>
