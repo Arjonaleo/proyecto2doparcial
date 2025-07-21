@@ -14,23 +14,63 @@
     </app-column>
   </section>
 
-  <!-- Modal de visualización de tarea -->
+  <!-- Modal de visualización/edición de tarea -->
   <div
     class="modal-backdrop"
     *ngIf="selectedTask"
-    (click)="selectedTask = null"               
+    (click)="closeTaskView()"
   >
     <div
       class="modal"
-      (click)="$event.stopPropagation()"         
+      (click)="$event.stopPropagation()"
     >
-      <h3>{{ selectedTask.title }}</h3>
-      <p><strong>Descripción:</strong> {{ selectedTask.description }}</p>
-      <p><strong>Asignado a:</strong> {{ selectedTask.assignee }}</p>
-      <p><strong>Estado:</strong> {{ selectedTask.status }}</p>
-      <button class="close-btn" (click)="selectedTask = null">
-        Cerrar
-      </button>
+      <h3>Editar Tarea</h3>
+
+      <form class="modal-form">
+        <!-- Título -->
+        <label for="task-title">Título</label>
+        <input
+          id="task-title"
+          [(ngModel)]="selectedTask.title"
+          name="title"
+          required
+        />
+
+        <!-- Descripción -->
+        <label for="task-desc">Descripción</label>
+        <textarea
+          id="task-desc"
+          [(ngModel)]="selectedTask.description"
+          name="description"
+          rows="3"
+        ></textarea>
+
+        <!-- Asignado -->
+        <label for="task-assignee">Asignado a</label>
+        <input
+          id="task-assignee"
+          [(ngModel)]="selectedTask.assignee"
+          name="assignee"
+        />
+
+        <!-- Estado -->
+        <label for="task-status">Estado</label>
+        <select
+          id="task-status"
+          [(ngModel)]="selectedTask.status"
+          name="status"
+        >
+          <option value="sin empezar">Sin empezar</option>
+          <option value="terminada">Terminada</option>
+          <option value="aprobada">Aprobada</option>
+        </select>
+
+        <!-- Botones -->
+        <div class="modal-actions">
+          <button type="button" (click)="closeTaskView()">Cancelar</button>
+          <button type="button" (click)="closeTaskView()">Guardar</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
