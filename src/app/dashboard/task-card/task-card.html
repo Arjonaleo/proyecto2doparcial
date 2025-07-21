@@ -1,14 +1,24 @@
 <div class="task-card" (click)="onView()">
   <div class="task-header">
     <p class="title">{{ task.title }}</p>
-    <!-- Detenemos propagación para que no se active el onView al eliminar -->
-    <button class="delete-btn" (click)="onDelete($event)" title="Eliminar tarea">×</button>
+    <!-- Detenemos propagación y llamamos onDelete() sin argumentos -->
+    <button
+      class="delete-btn"
+      (click)="onDelete(); $event.stopPropagation()"
+      title="Eliminar tarea"
+    >
+      ×
+    </button>
   </div>
 
-  <p class="description" *ngIf="task.description">{{ task.description }}</p>
+  <p class="description" *ngIf="task.description">
+    {{ task.description }}
+  </p>
 
   <div class="footer">
-    <span class="assignee" *ngIf="task.assignee">Asig.: {{ task.assignee }}</span>
+    <span class="assignee" *ngIf="task.assignee">
+      Asig.: {{ task.assignee }}
+    </span>
     <span class="status">{{ task.status }}</span>
   </div>
 </div>

@@ -27,7 +27,10 @@
       />
 
       <!-- Estado -->
-      <select formControlName="status" [class.invalid]="statusControl?.invalid && statusControl?.touched">
+      <select
+        formControlName="status"
+        [class.invalid]="statusControl?.invalid && statusControl?.touched"
+      >
         <option value="sin empezar">Sin empezar</option>
         <option value="terminada">Terminada</option>
         <option value="aprobada">Aprobada</option>
@@ -38,10 +41,15 @@
   </div>
 
   <div class="tasks">
-    <app-task-card
+    <div
+      class="task-wrapper"
       *ngFor="let task of tasks; trackBy: trackByTask"
-      [task]="task"
-      (delete)="onDelete($event)">
-    </app-task-card>
+      (click)="onView(task)"
+    >
+      <app-task-card
+        [task]="task"
+        (delete)="onDelete($event)"
+      ></app-task-card>
+    </div>
   </div>
 </div>
