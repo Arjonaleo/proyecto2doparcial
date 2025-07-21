@@ -9,14 +9,15 @@ import { Task } from '../board/board';
 })
 export class TaskCard {
   @Input() task!: Task;
+
   @Output() delete = new EventEmitter<number>();
-  // @Output() edit = new EventEmitter<Task>(); // opcional
+  @Output() view = new EventEmitter<Task>();  // ✅ Nuevo output para ver detalles
 
   onDelete(): void {
     this.delete.emit(this.task.id);
   }
 
-  // onEdit(): void {
-  //   this.edit.emit(this.task);
-  // }
+  onView(): void {
+    this.view.emit(this.task);  // ✅ Emitimos la tarea actual
+  }
 }

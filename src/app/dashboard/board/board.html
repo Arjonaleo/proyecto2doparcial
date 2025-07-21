@@ -9,7 +9,28 @@
       [name]="col.name"
       [tasks]="col.tasks"
       (add)="addTask(columns.indexOf(col), $event)"
-      (delete)="deleteTask(columns.indexOf(col), $event)">
+      (delete)="deleteTask(columns.indexOf(col), $event)"
+      (view)="onViewTask($event)">
     </app-column>
   </section>
+
+  <!-- Modal de visualización de tarea -->
+  <div
+    class="modal-backdrop"
+    *ngIf="selectedTask"
+    (click)="selectedTask = null"               
+  >
+    <div
+      class="modal"
+      (click)="$event.stopPropagation()"         
+    >
+      <h3>{{ selectedTask.title }}</h3>
+      <p><strong>Descripción:</strong> {{ selectedTask.description }}</p>
+      <p><strong>Asignado a:</strong> {{ selectedTask.assignee }}</p>
+      <p><strong>Estado:</strong> {{ selectedTask.status }}</p>
+      <button class="close-btn" (click)="selectedTask = null">
+        Cerrar
+      </button>
+    </div>
+  </div>
 </div>

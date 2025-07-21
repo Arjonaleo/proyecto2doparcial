@@ -1,4 +1,4 @@
-/// src/app/dashboard/board/board.ts
+// src/app/dashboard/board/board.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -24,6 +24,9 @@ interface Column {
 export class Board implements OnInit {
   groupId!: number;
   columns: Column[] = [];
+
+  // 🔹 Nueva propiedad para almacenar la tarea seleccionada
+  selectedTask: Task | null = null;
 
   constructor(private route: ActivatedRoute) {}
 
@@ -51,6 +54,20 @@ export class Board implements OnInit {
     this.columns[columnIndex].tasks = this.columns[columnIndex].tasks.filter(t => t.id !== taskId);
   }
 
+  /**
+   * Abre la vista de detalle de una tarea
+   */
+  onViewTask(task: Task): void {
+    this.selectedTask = task;
+  }
+
+  /**
+   * Cierra el modal
+   */
+  closeTaskView(): void {
+    this.selectedTask = null;
+  }
+
   trackByColumn(index: number, col: Column): string {
     return col.name;
   }
@@ -59,4 +76,3 @@ export class Board implements OnInit {
     return task.id;
   }
 }
-
