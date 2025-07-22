@@ -1,6 +1,6 @@
 // src/app/dashboard/board/board.ts
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router'; // ← Agregado Router para redirección
 
 export interface Task {
   id: number;
@@ -29,7 +29,10 @@ export class Board implements OnInit {
   selectedTask: Task | null = null;
   private storageKey!: string;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router // ← Necesario para navegar entre páginas
+  ) {}
 
   ngOnInit(): void {
     // Obtener el ID del grupo desde la URL
@@ -82,6 +85,13 @@ export class Board implements OnInit {
   }
 
   /**
+   * Redirige a la vista de "Mis Grupos"
+   */
+  goToGroups(): void {
+    this.router.navigate(['/group']); // ← Ruta que debe estar definida en tus rutas
+  }
+
+  /**
    * trackBy para optimizar ngFor de columnas
    */
   trackByColumn(index: number, col: Column): string {
@@ -110,4 +120,3 @@ export class Board implements OnInit {
     return raw ? JSON.parse(raw) as Column[] : null;
   }
 }
-
